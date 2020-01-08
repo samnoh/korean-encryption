@@ -50,6 +50,17 @@ export const changeVowel = arr => {
 
 export const randomFinal = arr => {
     const result = [...arr];
-    if (result[2] !== 0) result[2] = 1 + Math.floor(Math.random() * 27);
+    const temp = result[2];
+
+    if (temp !== 0) {
+        while (temp === result[2]) {
+            result[2] = 1 + Math.floor(Math.random() * 27);
+        }
+    }
+
     return result;
+};
+
+export const changeOrder = arr => {
+    return arr;
 };

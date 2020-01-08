@@ -8,7 +8,8 @@ import {
     CHANGE_ORDER,
     changeConsonant,
     changeVowel,
-    randomFinal
+    randomFinal,
+    changeOrder
 } from './options';
 
 // ref: https://m.blog.naver.com/tk2rush90/221085154547
@@ -35,7 +36,14 @@ const encryptHangul = (input, option) => {
     const result = [];
 
     for (let i = 0; i < input.length; i++) {
-        let arr = disassembleHangul(input[i]);
+        const char = input[i];
+
+        if (!/[가-힣]/.test(char)) {
+            result.push(char);
+            continue;
+        }
+
+        let arr = disassembleHangul(char);
 
         if (option.includes(CHANGE_CONSONANT)) {
             arr = changeConsonant(arr);
@@ -51,6 +59,7 @@ const encryptHangul = (input, option) => {
     }
 
     if (option.includes(CHANGE_ORDER)) {
+        changeOrder(result);
     }
 
     return hangul.assemble(result);

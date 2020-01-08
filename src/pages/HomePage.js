@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 
 import encryptHangul, {
     CHANGE_CONSONANT,
@@ -6,16 +6,18 @@ import encryptHangul, {
     RANDOM_FINAL,
     CHANGE_ORDER
 } from 'utils/hangul';
+import { copyToClipboard } from 'utils';
 
 const HomePage = () => {
+    const outputRef = useRef(null);
     const [values, setValues] = useState({
-        text: '',
+        text: '안녕하세요',
         consonant: '',
         vowel: '',
         final: '',
         order: ''
     });
-    const [output, setOutput] = useState();
+    const [output, setOutput] = useState('');
 
     const onChange = useCallback(
         e => {
@@ -40,6 +42,10 @@ const HomePage = () => {
         },
         [values]
     );
+
+    const onClick = useCallback(() => {
+        copyToClipboard(outputRef);
+    }, [outputRef]);
 
     return (
         <>
@@ -91,7 +97,13 @@ const HomePage = () => {
                 </label>
                 <button type="submit">변환</button>
             </form>
-            {output}
+            <div
+                ref={outputRef}
+                dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
+            />
+            {document.queryCommandSupported('copy') && output && (
+                <button onClick={onClick}>Copy</button>
+            )}
         </>
     );
 };
