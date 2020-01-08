@@ -1,9 +1,14 @@
 import React, { useState, useCallback } from 'react';
 
-import { encryptHangul } from 'utils';
+import encryptHangul, {
+    CHANGE_CONSONANT,
+    CHANGE_VOWEL,
+    RANDOM_FINAL,
+    CHANGE_ORDER
+} from 'utils/hangul';
 
 const HomePage = () => {
-    const [value, setValue] = useState('한하나');
+    const [value, setValue] = useState('가사');
 
     const onChange = useCallback(
         e => {
@@ -19,7 +24,7 @@ const HomePage = () => {
     return (
         <form onSubmit={onSubmit}>
             <input value={value} onChange={onChange} />
-            {encryptHangul(value)}
+            {encryptHangul(value, [CHANGE_CONSONANT, CHANGE_VOWEL, RANDOM_FINAL, CHANGE_ORDER])}
         </form>
     );
 };
