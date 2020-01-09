@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 
+import PageTemplate from 'components/common/PageTemplate';
 import encryptHangul, {
     CHANGE_CONSONANT,
     CHANGE_VOWEL,
@@ -48,7 +49,7 @@ const HomePage = () => {
     }, [outputRef]);
 
     return (
-        <>
+        <PageTemplate>
             <form onSubmit={onSubmit}>
                 <input value={values.text} name="text" onChange={onChange} />
                 <label htmlFor="consonant">
@@ -104,7 +105,7 @@ const HomePage = () => {
             {document.queryCommandSupported('copy') && output && (
                 <button onClick={onClick}>Copy</button>
             )}
-        </>
+        </PageTemplate>
     );
 };
 
