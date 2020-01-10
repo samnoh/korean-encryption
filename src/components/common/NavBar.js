@@ -2,26 +2,72 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Container = styled.div`
-    padding: 0 16px;
+import { media, palette as p } from 'styles';
+
+const Container = styled.header`
+    padding: 0 34px 0 24px;
     height: 52px;
-    background: #fff;
+    background: ${p.darkblue};
     display: flex;
     justify-content: space-between;
     align-items: center;
-    line-height: 0;
+    user-select: none;
+    color: ${p.white};
+
+    ${media.tablet`
+        flex-direction: column;
+        height: 88px;
+        padding: 10px 0;
+    `};
 
     & .title {
-        font-size: 26px;
+        font-weight: 600;
+        font-size: 22px;
+
+        ${media.tablet`
+            font-size: 19px;
+        `};
     }
 
     & .nav-link {
+        font-size: 15px;
+        width: 320px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        ${media.tablet`
+            font-size: 16px;
+            width: 100%;
+            padding: 0 30px;
+        `};
+
+        & a {
+            display: inline-block;
+            padding: 5px;
+
+            &:hover {
+                color: ${p.gray};
+            }
+        }
+
+        & .fa-external-link-alt {
+            color: ${p.gray};
+            margin-left: 3.2px;
+            vertical-align: 1.6px;
+        }
     }
 `;
 
 const NavItem = styled(NavLink)`
+    padding: 5px;
+
     &.active {
-        font-weight: bold;
+        color: ${p.gray};
+    }
+
+    &:hover {
+        color: ${p.gray};
     }
 `;
 
@@ -32,8 +78,11 @@ const NavBar = () => {
                 <Link to="/">한국어 암호화</Link>
             </div>
             <div className="nav-link">
-                <NavItem to="/" activeClassName="active">
+                <NavItem exact to="/" activeClassName="active">
                     Home
+                </NavItem>
+                <NavItem to="/encrypt" activeClassName="active">
+                    Encrypt
                 </NavItem>
                 <NavItem to="/about" activeClassName="active">
                     About
@@ -42,7 +91,7 @@ const NavBar = () => {
                     href="https://github.com/samnoh/korean-encryption"
                     target="_blank"
                     rel="noopener noreferrer">
-                    GitHub
+                    GitHub <i className="fas fa-external-link-alt fa-xs" />
                 </a>
             </div>
         </Container>

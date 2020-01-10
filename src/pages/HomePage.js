@@ -1,110 +1,52 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { lighten } from 'polished';
 
 import PageTemplate from 'components/common/PageTemplate';
-import encryptHangul, {
-    CHANGE_CONSONANT,
-    CHANGE_VOWEL,
-    RANDOM_FINAL,
-    CHANGE_ORDER
-} from 'utils/hangul';
-import { copyToClipboard } from 'utils';
+import Button from 'components/common/Button';
+import { media, palette as p } from 'styles';
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 212px);
+    flex-direction: column;
+
+    ${media.tablet`
+        min-height: calc(100vh - 218px);
+    `};
+
+    & .fa-arrow-right {
+        vertical-align: 1.4px;
+    }
+`;
+
+const Title = styled.h1`
+    color: ${p.darkblue};
+    font-size: 48px;
+    margin-bottom: 20px;
+`;
+
+const Description = styled.p`
+    font-size: 24px;
+    color: ${props => lighten(0.3, p.darkblue)};
+    margin-bottom: 60px;
+`;
 
 const HomePage = () => {
-    const outputRef = useRef(null);
-    const [values, setValues] = useState({
-        text: '안녕하세요',
-        consonant: '',
-        vowel: '',
-        final: '',
-        order: ''
-    });
-    const [output, setOutput] = useState('');
-
-    const onChange = useCallback(
-        e => {
-            setValues({
-                ...values,
-                [e.target.name]:
-                    e.target.type === 'checkbox'
-                        ? e.target.checked
-                            ? e.target.dataset.action
-                            : ''
-                        : e.target.value
-            });
-        },
-        [setValues, values]
-    );
-
-    const onSubmit = useCallback(
-        e => {
-            e.preventDefault();
-            const [, ...options] = Object.values(values);
-            setOutput(encryptHangul(values.text, options));
-        },
-        [values]
-    );
-
-    const onClick = useCallback(() => {
-        copyToClipboard(outputRef);
-    }, [outputRef]);
-
     return (
         <PageTemplate>
-            <form onSubmit={onSubmit}>
-                <input value={values.text} name="text" onChange={onChange} />
-                <label htmlFor="consonant">
-                    자음
-                    <input
-                        type="checkbox"
-                        value={values.consonant}
-                        id="consonant"
-                        name="consonant"
-                        onChange={onChange}
-                        data-action={CHANGE_CONSONANT}
-                    />
-                </label>
-                <label htmlFor="vowel">
-                    모음
-                    <input
-                        type="checkbox"
-                        value={values.vowel}
-                        id="vowel"
-                        name="vowel"
-                        onChange={onChange}
-                        data-action={CHANGE_VOWEL}
-                    />
-                </label>
-                <label htmlFor="final">
-                    받침
-                    <input
-                        type="checkbox"
-                        value={values.final}
-                        id="final"
-                        name="final"
-                        onChange={onChange}
-                        data-action={RANDOM_FINAL}
-                    />
-                </label>
-                <label htmlFor="order">
-                    순서 바꾸기
-                    <input
-                        type="checkbox"
-                        value={values.order}
-                        id="order"
-                        name="order"
-                        onChange={onChange}
-                        data-action={CHANGE_ORDER}
-                    />
-                </label>
-                <button type="submit">변환</button>
-            </form>
-            <div
-                ref={outputRef}
-                dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
-            />
-            {document.queryCommandSupported('copy') && output && (
-                <button onClick={onClick}>Copy</button>
-            )}
+            <Container>
+                <Title>한국어 암호화</Title>
+                <Description>땅쒼의 한끅어는 위뮈 암호화뙤었따!</Description>
+                <Link to="/encrypt">
+                    <Button>
+                        Get Started <i className="fas fa-arrow-right fa-xs" />
+                    </Button>
+                </Link>
+            </Container>
         </PageTemplate>
     );
 };

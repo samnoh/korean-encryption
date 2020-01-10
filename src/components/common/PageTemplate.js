@@ -3,13 +3,24 @@ import styled from 'styled-components';
 
 import NavBar from './NavBar';
 import Footer from './Footer';
+import { media, palette as p } from 'styles';
 
 const Content = styled.div`
     min-height: 100vh;
-    background: #343639;
+    background: ${p.white};
 `;
 
-const Main = styled.main``;
+const Main = styled.main`
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px;
+    min-height: calc(100vh - 152px);
+
+    ${media.tablet`
+        padding: 15px;
+        min-height: calc(100vh - 188px);
+    `};
+`;
 
 const PageTemplate = ({ children }) => {
     return (
