@@ -20,6 +20,10 @@ const Main = styled.main`
         padding: 15px;
         min-height: calc(100vh - 188px);
     `};
+
+    ${media.mobile`
+        min-height: calc(100vh - 148px);
+    `};
 `;
 
 const PageTemplate = ({ children }) => {

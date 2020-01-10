@@ -14,6 +14,8 @@ const Container = styled.footer`
     align-items: center;
 
     ${media.tablet`
+        height: 60px;
+        font-size: 14px;
         justify-content: center;
     `};
 `;

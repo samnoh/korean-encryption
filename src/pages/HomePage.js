@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { lighten } from 'polished';
@@ -18,6 +18,10 @@ const Container = styled.div`
         min-height: calc(100vh - 218px);
     `};
 
+    ${media.mobile`
+        min-height: calc(100vh - 178px);
+    `};
+
     & .fa-arrow-right {
         vertical-align: 1.4px;
     }
@@ -27,12 +31,20 @@ const Title = styled.h1`
     color: ${p.darkblue};
     font-size: 48px;
     margin-bottom: 20px;
+
+    ${media.mobile`
+        font-size: 46px;
+    `};
 `;
 
 const Description = styled.p`
     font-size: 24px;
     color: ${props => lighten(0.3, p.darkblue)};
     margin-bottom: 60px;
+
+    ${media.mobile`
+        font-size: 18px;
+    `};
 `;
 
 const HomePage = () => {
