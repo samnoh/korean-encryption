@@ -31,7 +31,7 @@ const HomePage = () => {
         <PageTemplate>
             <Container>
                 <Title>한국어 암호화</Title>
-                <Description>땅쒼의 한끅어는 위뮈 암호화뙤었따!</Description>
+                <Description>땅쒼의 한끅어는 이뮈 암호화뙤었따!</Description>
                 <Link to="/encrypt">
                     <Button>
                         Get Started <i className="fas fa-arrow-right fa-xs" />

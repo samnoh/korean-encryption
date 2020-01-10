@@ -50,8 +50,9 @@ export const changeVowel = arr => {
 
 export const randomFinal = arr => {
     const result = [...arr];
-    const temp = result[2];
+    const temp = result[2]; // final
 
+    // if there is not a empty string ' '
     if (temp !== 0) {
         while (temp === result[2]) {
             result[2] = 1 + Math.floor(Math.random() * 27);

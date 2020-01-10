@@ -38,7 +38,7 @@ const encryptHangul = (input, option) => {
     for (let i = 0; i < input.length; i++) {
         const char = input[i];
 
-        if (!/[가-힣]/.test(char)) {
+        if (/[^가-힣]/.test(char)) {
             result.push(char);
             continue;
         }

@@ -7,7 +7,7 @@ const HomePage = lazy(() => import('pages/HomePage'));
 const EncryptPage = lazy(() => import('pages/EncryptPage'));
 const AboutPage = lazy(() => import('pages/AboutPage'));
 
-function App() {
+const App = () => {
     return (
         <>
             <GlobalStyle />
@@ -20,6 +20,6 @@ function App() {
             </Suspense>
         </>
     );
-}
+};
 
 export default App;
