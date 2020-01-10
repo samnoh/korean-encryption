@@ -1,7 +1,10 @@
 // actions
 export const CHANGE_CONSONANT = 'CHANGE_CONSONANT';
 export const CHANGE_VOWEL = 'CHANGE_VOWEL';
+export const ADD_SHIFT = 'ADD_SHIFT';
 export const RANDOM_FINAL = 'RANDOM_FINAL';
+export const ADD_FINAL = 'ADD_FINAL';
+export const SEPARATE_LETTER = 'SEPARATE_LETTER';
 export const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const initial = text => {
@@ -48,6 +51,8 @@ export const changeVowel = arr => {
     return [i, medial(m), f];
 };
 
+export const addShift = arr => {};
+
 export const randomFinal = arr => {
     const result = [...arr];
     const temp = result[2]; // final
@@ -61,6 +66,10 @@ export const randomFinal = arr => {
 
     return result;
 };
+
+export const addFinal = arr => {};
+
+export const separateLetter = arr => {};
 
 export const changeOrder = arr => {
     return arr;
