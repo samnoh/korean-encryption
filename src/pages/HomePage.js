@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { lighten } from 'polished';
 
 import PageTemplate from 'components/common/PageTemplate';
 import Button from 'components/common/Button';
-import { media, palette as p } from 'styles';
+import { media, Title, Description } from 'styles';
 
 const Container = styled.div`
     display: flex;
@@ -25,26 +24,6 @@ const Container = styled.div`
     & .fa-arrow-right {
         vertical-align: 1.4px;
     }
-`;
-
-const Title = styled.h1`
-    color: ${p.darkblue};
-    font-size: 48px;
-    margin-bottom: 20px;
-
-    ${media.mobile`
-        font-size: 46px;
-    `};
-`;
-
-const Description = styled.p`
-    font-size: 24px;
-    color: ${props => lighten(0.3, p.darkblue)};
-    margin-bottom: 60px;
-
-    ${media.mobile`
-        font-size: 18px;
-    `};
 `;
 
 const HomePage = () => {
