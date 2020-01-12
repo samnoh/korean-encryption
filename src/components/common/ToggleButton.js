@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { palette as p, moveRight, moveLeft } from 'styles';
+import { media, palette as p, moveRight, moveLeft } from 'styles';
 
 const Container = styled.div`
     width: 100%;
@@ -10,7 +10,13 @@ const Container = styled.div`
     user-select: none;
     margin-bottom: 40px;
 
+    ${media.mobile`
+        padding: 0 15px;
+        text-align: left;
+    `};
+
     & label {
+        color: ${p.darkblue};
         pointer-events: none;
     }
 
@@ -18,12 +24,13 @@ const Container = styled.div`
         visibility: hidden;
         margin-left: -12px;
         cursor: pointer;
+        outline: none;
 
         &::before {
             visibility: visible;
             content: ' ';
             position: absolute;
-            top: calc(100% + 10px);
+            top: calc(100% + 16px);
             left: 0;
             right: 0;
             margin: 0 auto;
@@ -31,6 +38,11 @@ const Container = styled.div`
             height: 30px;
             background: ${p.lightgray};
             border-radius: 15px;
+
+            ${media.mobile`
+                top: 0;
+                left: calc(100% - 60px);
+            `};
         }
 
         &::after {
@@ -38,7 +50,7 @@ const Container = styled.div`
             visibility: visible;
             content: ' ';
             position: absolute;
-            top: calc(100% + 10px);
+            top: calc(100% + 16px);
             left: 0;
             right: 0;
             margin: 0 auto;
@@ -47,6 +59,11 @@ const Container = styled.div`
             border-radius: 50%;
             background: ${p.lightblue};
             animation: ${moveLeft('10px', '-10px')} 0.3s forwards ease;
+
+            ${media.mobile`
+                top: 0;
+                left: calc(100% - 60px);
+            `};
         }
 
         &:checked::after {

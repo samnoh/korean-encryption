@@ -21,9 +21,9 @@ const Container = styled.button`
     }
 `;
 
-const Button = ({ background, color, children }) => {
+const Button = ({ background, color, children, ...rest }) => {
     return (
-        <Container background={background} color={color}>
+        <Container background={background} color={color} {...rest}>
             {children}
         </Container>
     );

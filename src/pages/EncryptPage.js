@@ -13,29 +13,45 @@ import encryptHangul, {
 import { copyToClipboard } from 'utils';
 import { media, palette as p } from 'styles';
 
-const Container = styled.div``;
-
 const Form = styled.form`
     width: 100%;
     display: flex;
     flex-direction: column;
 
+    & button[type='submit'] {
+        margin-bottom: 40px;
+    }
+
     & .options {
-        margin: 40px 0;
+        margin: 40px 0 70px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        ${media.mobile`
+            flex-direction: column;
+            margin: 10px 0 0;
+        `};
     }
 
     & + .output {
         border: 1px solid ${p.lightgray};
         border-radius: 4px;
         white-space: pre;
+        margin-bottom: 40px;
+        width: 100%;
     }
 `;
 
 const TextArea = styled.textarea`
+    border: 1px solid ${p.lightgray};
+    border-radius: 4px;
+    padding: 10px 10px 0;
+    font-size: 20px;
+    height: 200px;
     resize: none;
+    outline: none;
+    margin-bottom: 40px;
 `;
 
 const optionButtons = [
@@ -102,31 +118,29 @@ const EncryptPage = () => {
 
     return (
         <PageTemplate>
-            <Container>
-                <Form onSubmit={onSubmit}>
-                    <div className="options">
-                        {optionButtons.map(attr => (
-                            <ToggleButton {...attr} onChange={onChange} value={values[attr.name]} />
-                        ))}
-                    </div>
-                    <TextArea value={values.text} name="text" onChange={onChange} />
-                    <Button type="submit" background={p.blue}>
-                        변환
-                    </Button>
-                </Form>
-                {output && (
-                    <div
-                        className="output"
-                        ref={outputRef}
-                        dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
-                    />
-                )}
-                {document.queryCommandSupported('copy') && output && (
-                    <button className="copy-button" onClick={onClick}>
-                        Copy
-                    </button>
-                )}
-            </Container>
+            <Form onSubmit={onSubmit}>
+                <div className="options">
+                    {optionButtons.map(attr => (
+                        <ToggleButton {...attr} onChange={onChange} value={values[attr.name]} />
+                    ))}
+                </div>
+                <TextArea value={values.text} name="text" onChange={onChange} />
+                <Button type="submit" background={p.blue}>
+                    변환
+                </Button>
+            </Form>
+            {output && (
+                <div
+                    className="output"
+                    ref={outputRef}
+                    dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
+                />
+            )}
+            {document.queryCommandSupported('copy') && output && (
+                <button className="copy-button" onClick={onClick}>
+                    Copy
+                </button>
+            )}
         </PageTemplate>
     );
 };
