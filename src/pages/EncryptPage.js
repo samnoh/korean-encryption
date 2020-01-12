@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useRef } from 'react';
+import styled from 'styled-components';
 
 import PageTemplate from 'components/common/PageTemplate';
+import Button from 'components/common/Button';
+import ToggleButton from 'components/common/ToggleButton';
 import encryptHangul, {
     CHANGE_CONSONANT,
     CHANGE_VOWEL,
@@ -8,6 +11,55 @@ import encryptHangul, {
     CHANGE_ORDER
 } from 'utils/hangul';
 import { copyToClipboard } from 'utils';
+import { media, palette as p } from 'styles';
+
+const Container = styled.div``;
+
+const Form = styled.form`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    & .options {
+        margin: 40px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    & + .output {
+        border: 1px solid ${p.lightgray};
+        border-radius: 4px;
+        white-space: pre;
+    }
+`;
+
+const TextArea = styled.textarea`
+    resize: none;
+`;
+
+const optionButtons = [
+    {
+        name: 'consonant',
+        title: '자음',
+        dataAction: CHANGE_CONSONANT
+    },
+    {
+        name: 'vowel',
+        title: '모음',
+        dataAction: CHANGE_VOWEL
+    },
+    {
+        name: 'final',
+        title: '받침',
+        dataAction: RANDOM_FINAL
+    },
+    {
+        name: 'order',
+        title: '순서 바꾸기',
+        dataAction: CHANGE_ORDER
+    }
+];
 
 const EncryptPage = () => {
     const outputRef = useRef(null);
@@ -50,61 +102,31 @@ const EncryptPage = () => {
 
     return (
         <PageTemplate>
-            <form onSubmit={onSubmit}>
-                <input value={values.text} name="text" onChange={onChange} />
-                <label htmlFor="consonant">
-                    자음
-                    <input
-                        type="checkbox"
-                        value={values.consonant}
-                        id="consonant"
-                        name="consonant"
-                        onChange={onChange}
-                        data-action={CHANGE_CONSONANT}
+            <Container>
+                <Form onSubmit={onSubmit}>
+                    <div className="options">
+                        {optionButtons.map(attr => (
+                            <ToggleButton {...attr} onChange={onChange} value={values[attr.name]} />
+                        ))}
+                    </div>
+                    <TextArea value={values.text} name="text" onChange={onChange} />
+                    <Button type="submit" background={p.blue}>
+                        변환
+                    </Button>
+                </Form>
+                {output && (
+                    <div
+                        className="output"
+                        ref={outputRef}
+                        dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
                     />
-                </label>
-                <label htmlFor="vowel">
-                    모음
-                    <input
-                        type="checkbox"
-                        value={values.vowel}
-                        id="vowel"
-                        name="vowel"
-                        onChange={onChange}
-                        data-action={CHANGE_VOWEL}
-                    />
-                </label>
-                <label htmlFor="final">
-                    받침
-                    <input
-                        type="checkbox"
-                        value={values.final}
-                        id="final"
-                        name="final"
-                        onChange={onChange}
-                        data-action={RANDOM_FINAL}
-                    />
-                </label>
-                <label htmlFor="order">
-                    순서 바꾸기
-                    <input
-                        type="checkbox"
-                        value={values.order}
-                        id="order"
-                        name="order"
-                        onChange={onChange}
-                        data-action={CHANGE_ORDER}
-                    />
-                </label>
-                <button type="submit">변환</button>
-            </form>
-            <div
-                ref={outputRef}
-                dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
-            />
-            {document.queryCommandSupported('copy') && output && (
-                <button onClick={onClick}>Copy</button>
-            )}
+                )}
+                {document.queryCommandSupported('copy') && output && (
+                    <button className="copy-button" onClick={onClick}>
+                        Copy
+                    </button>
+                )}
+            </Container>
         </PageTemplate>
     );
 };
