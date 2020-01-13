@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
 import PageTemplate from 'components/common/PageTemplate';
-import Button from 'components/common/Button';
 import ToggleButton from 'components/common/ToggleButton';
 import encryptHangul, {
     CHANGE_CONSONANT,
@@ -19,10 +18,6 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
 
-    & button[type='submit'] {
-        margin-bottom: 40px;
-    }
-
     & .options {
         margin: 40px 0 80px;
         display: flex;
@@ -36,21 +31,17 @@ const Form = styled.form`
     }
 
     & .non-options {
+        position: relative;
         display: flex;
         width: 100%;
         margin-bottom: 30px;
 
-        & button {
-            margin-bottom: 0;
-            padding: 0 8px;
-            cursor: pointer;
-            outline: none;
+        & .icon {
             font-size: 16px;
+            padding: 0 8px;
+            align-self: center;
+            outline: none;
             color: ${p.lightgray};
-
-            &:hover {
-                color: ${props => darken(0.1, p.lightgray)};
-            }
         }
     }
 `;
@@ -58,12 +49,27 @@ const Form = styled.form`
 const TextArea = styled.textarea`
     border: 1px solid ${p.lightgray};
     border-radius: 4px;
-    padding: 10px 10px 0;
+    padding: 10px;
     font-size: 20px;
-    height: 300px;
+    min-height: 300px;
+    height: auto;
     resize: none;
     outline: none;
     flex-grow: 1;
+    overflow: hidden;
+`;
+
+const Button = styled.button`
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: ${p.lightgray};
+
+    &:hover {
+        color: ${props => darken(0.1, p.lightgray)};
+    }
 `;
 
 const optionButtons = [
@@ -96,14 +102,24 @@ const EncryptPage = () => {
         consonant: '',
         vowel: '',
         final: '',
-        order: ''
+        order: '',
+        newline: 1
     });
     const [output, setOutput] = useState('');
+
+    useEffect(() => {
+        const [, ...options] = Object.values(values);
+        setOutput(encryptHangul(values.text, options));
+    }, [values]);
 
     const onChange = useCallback(
         e => {
             setValues({
                 ...values,
+                newline:
+                    e.target.type === 'checkbox'
+                        ? values.newline
+                        : e.target.value.split('\n').length,
                 [e.target.name]:
                     e.target.type === 'checkbox'
                         ? e.target.checked
@@ -142,24 +158,28 @@ const EncryptPage = () => {
                     ))}
                 </div>
                 <div className="non-options">
-                    <TextArea value={values.text} name="text" onChange={onChange} />
-                    <button type="submit">
-                        <i class="far fa-arrow-alt-circle-right fa-2x" />
-                    </button>
                     <TextArea
+                        rows={values.newline}
+                        value={values.text}
+                        name="text"
+                        onChange={onChange}
+                    />
+                    <div className="icon">
+                        <i className="far fa-arrow-alt-circle-right fa-2x" />
+                    </div>
+                    <TextArea
+                        rows={values.newline}
                         className="output"
                         ref={outputRef}
-                        value={output.replace(' ', '&nbsp;')}
+                        value={output}
                         name="output"
                         disabled
                     />
+                    <Button className="copy-button" onClick={onClick}>
+                        <i className="far fa-clipboard fa-2x" />
+                    </Button>
                 </div>
             </Form>
-            {output && (
-                <button className="copy-button" onClick={onClick}>
-                    Copy
-                </button>
-            )}
         </PageTemplate>
     );
 };
