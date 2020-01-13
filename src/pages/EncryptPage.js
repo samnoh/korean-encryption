@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 import PageTemplate from 'components/common/PageTemplate';
 import Button from 'components/common/Button';
@@ -23,7 +24,7 @@ const Form = styled.form`
     }
 
     & .options {
-        margin: 40px 0 70px;
+        margin: 40px 0 80px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -34,12 +35,23 @@ const Form = styled.form`
         `};
     }
 
-    & + .output {
-        border: 1px solid ${p.lightgray};
-        border-radius: 4px;
-        white-space: pre;
-        margin-bottom: 40px;
+    & .non-options {
+        display: flex;
         width: 100%;
+        margin-bottom: 30px;
+
+        & button {
+            margin-bottom: 0;
+            padding: 0 8px;
+            cursor: pointer;
+            outline: none;
+            font-size: 16px;
+            color: ${p.lightgray};
+
+            &:hover {
+                color: ${props => darken(0.1, p.lightgray)};
+            }
+        }
     }
 `;
 
@@ -48,10 +60,10 @@ const TextArea = styled.textarea`
     border-radius: 4px;
     padding: 10px 10px 0;
     font-size: 20px;
-    height: 200px;
+    height: 300px;
     resize: none;
     outline: none;
-    margin-bottom: 40px;
+    flex-grow: 1;
 `;
 
 const optionButtons = [
@@ -121,22 +133,29 @@ const EncryptPage = () => {
             <Form onSubmit={onSubmit}>
                 <div className="options">
                     {optionButtons.map(attr => (
-                        <ToggleButton {...attr} onChange={onChange} value={values[attr.name]} />
+                        <ToggleButton
+                            {...attr}
+                            onChange={onChange}
+                            value={values[attr.name]}
+                            key={attr.name}
+                        />
                     ))}
                 </div>
-                <TextArea value={values.text} name="text" onChange={onChange} />
-                <Button type="submit" background={p.blue}>
-                    변환
-                </Button>
+                <div className="non-options">
+                    <TextArea value={values.text} name="text" onChange={onChange} />
+                    <button type="submit">
+                        <i class="far fa-arrow-alt-circle-right fa-2x" />
+                    </button>
+                    <TextArea
+                        className="output"
+                        ref={outputRef}
+                        value={output.replace(' ', '&nbsp;')}
+                        name="output"
+                        disabled
+                    />
+                </div>
             </Form>
             {output && (
-                <div
-                    className="output"
-                    ref={outputRef}
-                    dangerouslySetInnerHTML={{ __html: output.replace(' ', '&nbsp;') }}
-                />
-            )}
-            {document.queryCommandSupported('copy') && output && (
                 <button className="copy-button" onClick={onClick}>
                     Copy
                 </button>

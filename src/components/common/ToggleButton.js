@@ -57,7 +57,7 @@ const Container = styled.div`
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: ${p.lightblue};
+            background: ${p.gray};
             animation: ${moveLeft('10px', '-10px')} 0.3s forwards ease;
 
             ${media.mobile`
