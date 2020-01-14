@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import PageTemplate from 'components/common/PageTemplate';
 import ToggleButton from 'components/common/ToggleButton';
@@ -46,17 +47,18 @@ const Form = styled.form`
     }
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled(TextareaAutosize)`
+    width: calc(50% - 24px);
     border: 1px solid ${p.lightgray};
     border-radius: 4px;
-    padding: 10px;
+    padding: 10px 10px 30px;
     font-size: 20px;
     min-height: 300px;
     height: auto;
+    overflow-y: hidden;
     resize: none;
     outline: none;
-    flex-grow: 1;
-    overflow: hidden;
+    color: initial;
 `;
 
 const Button = styled.button`
@@ -102,8 +104,7 @@ const EncryptPage = () => {
         consonant: '',
         vowel: '',
         final: '',
-        order: '',
-        newline: 1
+        order: ''
     });
     const [output, setOutput] = useState('');
 
@@ -116,10 +117,6 @@ const EncryptPage = () => {
         e => {
             setValues({
                 ...values,
-                newline:
-                    e.target.type === 'checkbox'
-                        ? values.newline
-                        : e.target.value.split('\n').length,
                 [e.target.name]:
                     e.target.type === 'checkbox'
                         ? e.target.checked
@@ -159,7 +156,7 @@ const EncryptPage = () => {
                 </div>
                 <div className="non-options">
                     <TextArea
-                        rows={values.newline}
+                        useCacheForDOMMeasurements
                         value={values.text}
                         name="text"
                         onChange={onChange}
@@ -168,11 +165,11 @@ const EncryptPage = () => {
                         <i className="far fa-arrow-alt-circle-right fa-2x" />
                     </div>
                     <TextArea
-                        rows={values.newline}
+                        useCacheForDOMMeasurements
                         className="output"
-                        ref={outputRef}
-                        value={output}
+                        inputRef={outputRef}
                         name="output"
+                        value={output}
                         disabled
                     />
                     <Button className="copy-button" onClick={onClick}>
