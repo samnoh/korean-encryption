@@ -28,6 +28,7 @@ const Container = styled.div`
 
         &::before {
             visibility: visible;
+            pointer-events: initial;
             content: ' ';
             position: absolute;
             top: calc(100% + 16px);

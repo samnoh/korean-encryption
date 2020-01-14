@@ -94,7 +94,7 @@ const optionButtons = [
         dataAction: RANDOM_FINAL
     },
     {
-        name: 'final',
+        name: 'qtfinal',
         title: 'ㅄ 받침',
         dataAction: ADD_FINAL
     },
