@@ -5,10 +5,14 @@ import {
     CHANGE_CONSONANT,
     CHANGE_VOWEL,
     RANDOM_FINAL,
+    ADD_FINAL,
+    ADD_SHIFT,
     CHANGE_ORDER,
     changeConsonant,
     changeVowel,
     randomFinal,
+    addFinal,
+    addShift,
     changeOrder
 } from './options';
 
@@ -53,6 +57,12 @@ const encryptHangul = (input, option) => {
         }
         if (option.includes(RANDOM_FINAL)) {
             arr = randomFinal(arr);
+        }
+        if (option.includes(ADD_FINAL)) {
+            arr = addFinal(arr);
+        }
+        if (option.includes(ADD_SHIFT)) {
+            arr = addShift(arr);
         }
 
         result.push(getHangulIdx(arr));

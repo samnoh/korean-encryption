@@ -9,15 +9,15 @@ export const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const initial = text => {
     switch (text) {
-        case 0:
+        case 0: // ㄱ -> ㄲ
             return 1;
-        case 3:
+        case 3: // ㄷ -> ㄸ
             return 4;
-        case 7:
+        case 7: // ㅂ -> ㅃ
             return 8;
-        case 9:
+        case 9: // ㅅ -> ㅆ
             return 10;
-        case 12:
+        case 12: // ㅈ -> ㅉ
             return 13;
         default:
             return text;
@@ -41,18 +41,25 @@ const medial = text => {
     }
 };
 
+// CHANGE_CONSONANT
 export const changeConsonant = arr => {
     const [i, ...rest] = [...arr];
     return [initial(i), ...rest];
 };
 
+// CHANGE_VOWEL
 export const changeVowel = arr => {
     const [i, m, f] = [...arr];
     return [i, medial(m), f];
 };
 
-export const addShift = arr => {};
+// ADD_SHIFT
+export const addShift = arr => {
+    const [i, ...rest] = [...arr];
+    return [initial(i), ...rest];
+};
 
+// RANDOM_FINAL
 export const randomFinal = arr => {
     const result = [...arr];
     const temp = result[2]; // final
@@ -67,10 +74,16 @@ export const randomFinal = arr => {
     return result;
 };
 
-export const addFinal = arr => {};
+// ADD_FINAL
+export const addFinal = arr => {
+    const [i, m] = [...arr];
+    return [i, m, 18];
+};
 
+// SEPARATE_LETTER
 export const separateLetter = arr => {};
 
+// CHANGE_ORDER
 export const changeOrder = arr => {
     return arr;
 };

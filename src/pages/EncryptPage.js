@@ -9,6 +9,8 @@ import encryptHangul, {
     CHANGE_CONSONANT,
     CHANGE_VOWEL,
     RANDOM_FINAL,
+    ADD_FINAL,
+    ADD_SHIFT,
     CHANGE_ORDER
 } from 'utils/hangul';
 import { copyToClipboard } from 'utils';
@@ -59,6 +61,7 @@ const TextArea = styled(TextareaAutosize)`
     resize: none;
     outline: none;
     color: initial;
+    margin-bottom: 20px;
 `;
 
 const Button = styled.button`
@@ -87,8 +90,18 @@ const optionButtons = [
     },
     {
         name: 'final',
-        title: '받침',
+        title: '랜덤 받침',
         dataAction: RANDOM_FINAL
+    },
+    {
+        name: 'final',
+        title: 'ㅄ 받침',
+        dataAction: ADD_FINAL
+    },
+    {
+        name: 'shift',
+        title: '쉬프트',
+        dataAction: ADD_SHIFT
     },
     {
         name: 'order',
