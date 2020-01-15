@@ -36,7 +36,7 @@ const Container = styled.footer`
         text-transform: uppercase;
         position: relative;
         top: -20px;
-        right: -12px;
+        right: -10px;
         transform: rotate(90deg);
         font-size: 11px;
         letter-spacing: 1px;
@@ -58,8 +58,8 @@ const Container = styled.footer`
             width: 30px;
             height: 3px;
             background: ${props => darken(0.4, p.lightgray)};
-            top: 7px;
-            right: -40px;
+            top: 7.5px;
+            right: -36px;
 
             ${media.tablet`
                 background: ${props => darken(0.6, p.lightgray)};

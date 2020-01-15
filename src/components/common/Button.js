@@ -10,7 +10,7 @@ const Container = styled.button`
     display: inline-block;
     color: ${props => props.color || p.white};
     font-size: 20px;
-    background: ${props => props.background || p.lightblue};
+    background: ${props => props.background || p.blue};
     padding: 12px 20px;
     border-radius: 4px;
     transition: background-color 0.2s ease;
