@@ -62,6 +62,10 @@ const About = [
         description: 'Test'
     },
     {
+        title: '이 웺삾잆틊를 왜 만들었나요?',
+        description: '...'
+    },
+    {
         title: '깃헙에 Pull Request 할 수 있나요?',
         description: '누구라도 환영합니다.'
     }
