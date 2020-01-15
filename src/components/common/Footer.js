@@ -17,7 +17,6 @@ const Container = styled.footer`
     ${media.tablet`
         height: 60px;
         font-size: 14px;
-        justify-content: center;
     `};
 
     & .left {
@@ -25,6 +24,11 @@ const Container = styled.footer`
         align-self: flex-end;
         margin-bottom: 20px;
         color: ${props => darken(0.58, p.lightgray)};
+
+        ${media.tablet`
+            margin-bottom: 10px;
+            margin-left: -10px;
+        `};
     }
 
     & .right {
@@ -34,9 +38,19 @@ const Container = styled.footer`
         top: -20px;
         right: -12px;
         transform: rotate(90deg);
-        font-size: 10px;
+        font-size: 11px;
+        letter-spacing: 1px;
         font-weight: bold;
         color: ${props => darken(0.4, p.lightgray)};
+
+        ${media.tablet`
+            letter-spacing: initial;
+            color: ${props => darken(0.6, p.lightgray)};
+            font-size: 8px;
+            top: -10px;
+            right: -18px;
+            margin-left: -10px;
+        `};
 
         &::after {
             content: ' ';
@@ -46,6 +60,14 @@ const Container = styled.footer`
             background: ${props => darken(0.4, p.lightgray)};
             top: 7px;
             right: -40px;
+
+            ${media.tablet`
+                background: ${props => darken(0.6, p.lightgray)};
+                height: 2px;
+                width: 20px;
+                top: 7.2px;
+                right: -24px;
+        `};
         }
     }
 `;
