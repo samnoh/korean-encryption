@@ -71,12 +71,12 @@ const AboutPage = () => {
     return (
         <PageTemplate>
             {About.map((i, idx) => (
-                <>
+                <div key={idx}>
                     <Title>
                         <div className="index">{idx + 1}</div> {i.title}
                     </Title>
                     <Description>{i.description}</Description>
-                </>
+                </div>
             ))}
         </PageTemplate>
     );
