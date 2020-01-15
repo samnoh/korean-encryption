@@ -23,7 +23,7 @@ const Container = styled.footer`
         font-weight: 100;
         align-self: flex-end;
         margin-bottom: 20px;
-        color: ${props => darken(0.58, p.lightgray)};
+        color: ${_ => darken(0.58, p.lightgray)};
 
         ${media.tablet`
             margin-bottom: 10px;
@@ -41,11 +41,11 @@ const Container = styled.footer`
         font-size: 11px;
         letter-spacing: 1px;
         font-weight: bold;
-        color: ${props => darken(0.4, p.lightgray)};
+        color: ${_ => darken(0.4, p.lightgray)};
 
         ${media.tablet`
             letter-spacing: initial;
-            color: ${props => darken(0.6, p.lightgray)};
+            color: ${_ => darken(0.6, p.lightgray)};
             font-size: 8px;
             top: -10px;
             right: -18px;
@@ -57,7 +57,7 @@ const Container = styled.footer`
             position: absolute;
             width: 30px;
             height: 3px;
-            background: ${props => darken(0.4, p.lightgray)};
+            background: ${_ => darken(0.4, p.lightgray)};
             top: 7.5px;
             right: -36px;
 

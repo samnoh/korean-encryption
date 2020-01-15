@@ -22,7 +22,7 @@ const Title = styled(T)`
         display: inline-block;
         font-weight: 100;
         user-select: none;
-        color: ${props => darken(0.08, p.lightgray)};
+        color: ${_ => darken(0.08, p.lightgray)};
         font-size: 40px;
         mask-image: linear-gradient(to bottom, black 50%, transparent 86%);
 

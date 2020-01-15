@@ -16,7 +16,7 @@ export const Title = styled.h1`
 
 export const Description = styled.p`
     font-size: 24px;
-    color: ${props => lighten(0.3, p.darkblue)};
+    color: ${_ => lighten(0.3, p.darkblue)};
     margin-bottom: 60px;
 
     ${media.mobile`

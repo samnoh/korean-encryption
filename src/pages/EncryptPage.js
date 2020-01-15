@@ -69,11 +69,11 @@ const Button = styled.button`
     outline: none;
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: 30px;
     color: ${p.lightgray};
 
     &:hover {
-        color: ${props => darken(0.1, p.lightgray)};
+        color: ${_ => darken(0.1, p.lightgray)};
     }
 `;
 
