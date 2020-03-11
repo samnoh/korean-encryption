@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import NavBar from './NavBar';
+import Notification from './Notification';
 import Footer from './Footer';
 import { media, palette as p } from 'styles';
 
@@ -32,6 +33,7 @@ const PageTemplate = ({ children }) => {
             <NavBar />
             <Main>{children}</Main>
             <Footer />
+            <Notification />
         </Content>
     );
 };

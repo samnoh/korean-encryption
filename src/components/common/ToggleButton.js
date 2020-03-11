@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { media, palette as p, moveRight, moveLeft } from 'styles';
+import { media, palette as p, moveRight, moveLeft, fade } from 'styles';
 
 const Container = styled.div`
     width: 100%;
@@ -59,7 +59,8 @@ const Container = styled.div`
             height: 30px;
             border-radius: 50%;
             background: ${p.gray};
-            animation: ${moveLeft('10px', '-10px')} 0.3s forwards ease;
+            animation: ${fade(0, 1)} 1s ease forwards,
+                ${moveLeft('10px', '-10px')} 0.3s forwards ease;
 
             ${media.mobile`
                 top: 0;
@@ -69,7 +70,7 @@ const Container = styled.div`
 
         &:checked::after {
             background: ${p.blue};
-            animation: ${moveRight('10px')} 0.3s forwards ease;
+            animation: ${fade(0, 1)} 1s ease forwards, ${moveRight('10px')} 0.3s forwards ease;
         }
     }
 `;

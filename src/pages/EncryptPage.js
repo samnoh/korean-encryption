@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -13,6 +14,7 @@ import encryptHangul, {
     ADD_SHIFT,
     CHANGE_ORDER
 } from 'utils/hangul';
+import { openNotification } from 'redux/actions/app';
 import { copyToClipboard } from 'utils';
 import { media, palette as p } from 'styles';
 
@@ -112,6 +114,7 @@ const optionButtons = [
 
 const EncryptPage = () => {
     const outputRef = useRef(null);
+    const dispatch = useDispatch();
     const [values, setValues] = useState({
         text: '안녕하세요',
         consonant: '',
@@ -128,14 +131,10 @@ const EncryptPage = () => {
 
     const onChange = useCallback(
         e => {
+            const { name, type, checked, dataset, value } = e.target;
             setValues({
                 ...values,
-                [e.target.name]:
-                    e.target.type === 'checkbox'
-                        ? e.target.checked
-                            ? e.target.dataset.action
-                            : ''
-                        : e.target.value
+                [name]: type === 'checkbox' ? (checked ? dataset.action : '') : value
             });
         },
         [setValues, values]
@@ -152,6 +151,7 @@ const EncryptPage = () => {
 
     const onClick = useCallback(() => {
         copyToClipboard(outputRef);
+        dispatch(openNotification({ text: 'Copied!' }));
     }, [outputRef]);
 
     return (
